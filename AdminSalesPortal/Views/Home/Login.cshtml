@@ -1,0 +1,80 @@
+﻿@{
+    Layout = null;
+}
+@model AdminPortal.Models.LoginModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Log in</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    
+    <!-- DataTables JavaScript -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <title>Login</title>
+   
+</head>
+<body class="hold-transition login-page">
+    <div >
+        <div class="login-logo">
+        </div>
+        <div class="card">
+            <div class="card-body" style="text-align: center;">
+                <h1>Welcome!</h1>
+                <h1><b>Focus Marketting</b></h1>
+                <p class="login-box-msg">Enter your login details below</p>
+
+                <form id="account" method="post">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", autocomplete = "off", placeholder = "Email address" })
+                        <div class="input-group-append"></div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    <div class="input-group" style="margin-top: 15px;">
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", @value = ViewBag.Password, autocomplete = "off", placeholder = "Password" })
+                        <div class="input-group-append"></div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                    <div class="row mb-5" style="margin-top: 10px;">
+                        <div class="col d-flex">
+                            @*<div>
+                                    <label class="form-check-label">Remember Me</label>
+                                </div>*@
+                        </div>
+                        <div></div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <button type="submit" id="Login" class="btn btn-primary btn-block">Login</button>
+                        </div>
+                    </div>
+                    <div id="popupMessage" style="display: none;">You are not an admin.</div>
+
+                    <div class="row mb-2"></div>
+                    <div asp-validation-summary="All" class="text-danger small"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @if (ViewBag.ShowPopupMessage != null && ViewBag.ShowPopupMessage)
+    {
+        <script>
+            // Function to show the popup message
+            document.getElementById("popupMessage").style.display = "block";
+        </script>
+    }
+</body>
+</html>

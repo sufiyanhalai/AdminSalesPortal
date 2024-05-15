@@ -1,0 +1,73 @@
+﻿@model AdminSalesPortal.Models.TeamModel
+<head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<section class="content">
+    <div class="form-horizontal">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <ol class=" float-sm-left">
+                            <h2>View Team</h2>
+                        </ol>
+                        <div class="card-body">
+                            @*<div class="form-group">
+            <div class="col-md-12 row">
+                <label class="control-label col-md-2">Team Name :</label>
+                <div class="control-label col-md-4">@Html.DisplayFor(model => model.sTeamName)</div>
+
+                <label class="control-label col-md-2">Description :</label>
+                <div class="control-label col-md-4">@Html.DisplayFor(model => model.sDescription)</div>
+
+                <label class="control-label col-md-2">Created Date :</label>
+                <div class="control-label col-md-4">@Html.DisplayFor(model => model.dtCreatedDate)</div>
+
+                <label class="control-label col-md-2">Updated Date :</label>
+                <div class="control-label col-md-4">@Html.DisplayFor(model => model.dtUpdatedDAte)</div>
+
+            </div>
+            <a class="btn btn-primary btn-search" href="@Url.Action("TeamList", "Home")" style="float: right;"><i></i> &nbsp; Back To List </a>
+
+
+        </div>*@
+                            <div class="form-group">
+                                <div class="col-md-12 row">
+                                    @Html.LabelFor(model => model.sTeamName, "Team Name", new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4" style="margin-top:7px;">
+                                        :
+                                        @Html.DisplayFor(model => model.sTeamName)
+                                    </div>
+                                    @Html.LabelFor(model => model.sDescription, "Description", new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4" style="margin-top:7px;">
+                                        :
+                                        @Html.DisplayFor(model => model.sDescription)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 row">
+                                    @Html.LabelFor(model => model.dtCreatedDate, "Create Date", new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4" style="margin-top:7px;">
+                                        :
+                                        @Html.DisplayFor(model => model.dtCreatedDate)
+                                    </div>
+                                    @Html.LabelFor(model => model.dtUpdatedDAte, "Update Date", new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4" style="margin-top:7px;">
+                                        :
+                                        @Html.DisplayFor(model => model.dtUpdatedDAte)
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="btn btn-primary btn-search" href="@Url.Action("TeamList", "Home")" style="float: right;"><i></i> &nbsp; Back To List </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</section>

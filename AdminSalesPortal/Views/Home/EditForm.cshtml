@@ -1,0 +1,114 @@
+﻿@model List<AdminSalesPortal.Models.FieldModel>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<div class="row mb-2">
+    <div class="col-sm-12">
+        <h2>Edit Activity</h2>
+    </div>
+</div>
+<section class="content">
+    <div class="form-horizontal">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm("EditForm", "Home", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <div class="col-md-12 row">
+                                @*@foreach (var item in Model)
+                                    {
+                                        if (item.FieldInputTypeName == "Dropdown")
+                                        {
+                                            var a = item.sFieldAnswer;
+                                        @Html.DropDownListFor(model => a, item.DefaultValues.Select(x => new SelectListItem() { Value = Convert.ToString(x.Value), Text = x.Text }).ToList(), "selected", new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                        }
+                                    }*@
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].sFieldAnswer, Model[i].FieldLabel, new { @class = "control-label col-md-4" })
+                                            <div class="col-md-8">
+                                                @if (Model[i].FieldInputTypeName == "Textbox")
+                                                {
+                                                    @Html.EditorFor(model => model[i].sFieldAnswer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                    @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
+                                                }
+                                                else if (Model[i].FieldInputTypeName == "Dropdown")
+                                                {
+                                                    @Html.DropDownListFor(model => model[i].sFieldAnswer, Model[i].DefaultValues.Select(x => new SelectListItem()
+                                                    {
+                                                        Value = Convert.ToString(x.Value)
+                                                   ,
+                                                        Text = x.Text,
+                                                        Selected = (x.Text == Model[i].sFieldAnswer) ? true : false
+                                               }).ToList(), "selected", new { @class = "form-control", autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
+                                                }
+                                                else if (Model[i].FieldInputTypeName == "RadioButton")
+                                                {
+                                                    foreach (var option in Model[i].DefaultValues)
+                                                    {
+                                                        <label class="radio-inline">
+                                                            @Html.RadioButtonFor(model => model[i].sFieldAnswer, option.Value.ToString(), new { @checked = (option.Value.ToString() == Model[i].sFieldAnswer) })
+                                                            @option.Text
+                                                        </label>
+                                                    }
+                                                    @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
+                                                }
+                                                else if (Model[i].FieldInputTypeName == "Datepicker")
+                                                {
+                                                    var formattedDate = DateTime.ParseExact(Model[i].sFieldAnswer, "ddd MMM dd yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                                                    @*@Html.EditorFor(model => model[i].sFieldAnswer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @type= "date", value = formattedDate } })*@
+                                                    <input type="date" class="form-control" name="Model[@i].sFieldAnswer" value="@formattedDate" />
+                                                    @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
+                                                }
+                                                @*else if (Model[i].FieldInputTypeName == "FileUpload")
+        {
+            <input type="file" name="Model[@i].sFieldAnswer" multiple />
+            @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
+            <br>
+            if (!string.IsNullOrEmpty(model[i].sFieldAnswer))
+            {
+                var filePaths = model[i].sFieldAnswer.Split(',');
+                foreach (var filePath in filePaths)
+                {
+                    var fileName = Path.GetFileName(filePath.Trim());
+                    <div class="col-md-12">
+                        <p>
+                            <b>Selected file:</b>
+                            <a href="@Url.Content("~/")@filePath" download>@fileName</a>
+                            <span class="fa fa-times" style="color: red; margin: 7px;"></span>
+                        </p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No file chosen</p>
+            }
+        }*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10 mb-4 mt-5">
+                                <input type="submit" id="saveButton" value="Save" class="btn btn-primary" />
+                                <a class="btn btn-primary btn-search" href="@Url.Action("Index", "Home")"><i></i> &nbsp; Back To List </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

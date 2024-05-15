@@ -1,0 +1,54 @@
+﻿@model List<Field>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<h2>View Activity</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <div class="col-md-12 row">
+                    @foreach (var field in Model)
+                    {
+                        <label class="control-label col-md-2">@field.FieldLabel :</label>
+
+                        if (field.FieldLabel != "Attachment")
+                        {
+                            <div class="control-label col-md-4">@field.sFieldAnswer</div>
+                        }
+                        <br><br>
+                        if (field.FieldLabel == "Attachment")
+                        {
+                <div class="control-label col-md-4">
+                    @if (!string.IsNullOrEmpty(field.sFieldAnswer))
+                    {
+                        var filePaths = field.sFieldAnswer.Split(',');
+                        foreach (var filePath in filePaths)
+                        {
+                            var fileName = Path.GetFileName(filePath.Trim());
+                            <p>
+                                @Html.ActionLink(fileName, "DownloadFile", "Home", new { filePath = filePath, fileName = fileName }, null)
+                                <!--<a href="@Url.Content("https://salestrackingmanagement.msainfotech.in/" + filePath)" download>@fileName</a>-->
+                                @*<a href="http://localhost:8088/@filePath" download>@fileName</a>*@
+                            </p>
+                        }
+                    }
+                    else
+                    {
+                        <p>No file chosen</p>
+                    }
+                </div>
+                        }
+                    }
+                </div>
+
+            </div>
+            <a class="btn btn-primary btn-search" href="@Url.Action("Index", "Home")" style="float: right;"><i></i> &nbsp; Back To List </a>
+
+        </div>
+    </div>
+}

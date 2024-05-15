@@ -1,0 +1,515 @@
+﻿@{
+   
+}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- /.card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title" id="ProjectMaster-title">
+                            <h4> <b>Agent Activity</b></h4>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <!-- Dropdowns -->
+                    <form id="searchForm">
+                        <div class="card-body">
+                            <div class="row" id="drop">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Team</label>
+                                        <select class="form-control" id="teamDropdown">
+                                            <option>Select Team</option>
+                                            @foreach (var team in ViewBag.Teams)
+                                            {
+
+                                                <option>@team.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Agent</label>
+                                        <select class="form-control" id="agentDropdown">
+                                            <option>Select Agent</option>
+                                            @foreach (var agent in ViewBag.AgentNames)
+                                            {
+
+                                                <option value="@agent.Id">@agent.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Credit Check</label>
+                                        <select class="form-control" id="creditcheck">
+                                            <option>All</option>
+                                            <option>Yes</option>
+                                            <option>No</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Internet</label>
+                                        <select class="form-control" id="internet">
+                                            <option>All</option>
+                                            <option>Yes</option>
+                                            <option>No</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                @*<div class="row" id="input">*@
+                                @*<div class="col-sm-2">
+                                        <div class="form-group"style="margin-top:29px;">
+                                            <label>CheckBox</label>
+                                            <input type="checkbox" id="nameCheckbox" />
+                                        </div>
+                                    </div>*@
+                                @*</div>*@
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstNameInput" />
+                                    </div>
+                                </div>
+                                @*<div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input type="text" class="form-control" id="firstNameInput" />
+                                        </div>
+                                    </div>*@
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Middle Name</label>
+                                        <input type="text" class="form-control" id="middleNameInput" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastNameInput" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Phone Number</label>
+                                        <input type="text" class="form-control" id="PhoneNumberInput" />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="control-label">&nbsp;</label>
+                                        <button type="button" class="btn btn-primary form-control" id="SearchNow">Search</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="control-label">&nbsp;</label>
+                                        <button type="button" class="btn btn-primary form-control" id="ExportBtn" onclick="ExportToExcel()">Export</button>
+                                    </div>
+                                </div>
+                                @*<div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="control-label">&nbsp;</label>
+                                            <button type="button" class="btn btn-primary form-control" id="Textbox">Search</button>
+                                        </div>
+                                    </div>*@
+
+
+
+                                @*<div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Identity Type</label>
+                                            <select id="identityType" class="form-control select2">
+                                                <option value="">Select Identity Type</option>
+                                                <option value="Driving License">Driving License</option>
+                                                <option value="Birth Certificate">Birth Certificate</option>
+                                                <option value="Community Service Card">Community Service Card</option>
+                                                <option value="Super Gold Card">Super Gold Card</option>
+                                                <option value="Passport">Passport</option>
+                                                <option value="18+ Card">18+ Card</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">User Type</label>
+                                            <select id="userType" class="form-control select2">
+                                                <option value="">Select User Type</option>
+                                                <option value="Standard User">Standard User</option>
+                                                <option value="Low User">Low User</option>
+                                                <option value="Normal User">Normal User</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Joining Credit</label>
+                                            <select id="joiningCredit" class="form-control select2">
+                                                <option value="">Joining Credit</option>
+                                                <option value="JC $50">JC $50</option>
+                                                <option value="JC $75">JC $75</option>
+                                                <option value="JC $100">JC $100</option>
+                                                <option value="JC $150">JC $150</option>
+                                                <option value="JC $200">JC $200</option>
+                                                <option value="No Credit">No Credit</option>
+                                            </select>
+                                        </div>
+                                    </div>*@
+
+
+                    </form>
+
+                    <!-- Grid -->
+                    <div class="card-body">
+                        <div>
+                            <table id="ProjectMasterIndex" class="table table-bordered table-striped nowrap" style="width:100%;">
+                                <thead>
+                                    <tr>
+
+                                        <th style="text-align: center;">Agent</th>
+                                        <th style="text-align: center;">Title</th>
+                                        <th style="text-align: center; width: 40%;">FirstName</th>
+                                        <th style="text-align: center; width: 40%;">MiddleName</th>
+                                        <th style="text-align: center; width: 40%;">LastName</th>
+                                        <th style="text-align: center;">Address</th>
+                                        <th style="text-align: center;">Phone</th>
+                                        @*<th style="text-align: center;">DOB</th>*@
+                                        <th style="text-align: center;">Internet</th>
+                                        <th style="text-align: center;">CC</th>
+                                        <th style="text-align: center;">Verified</th>
+                                        <th style="text-align: center;">Status</th>
+                                        <th style="text-align: center;">Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    @foreach (var agentActivity in ViewBag.Activities)
+                                    {
+
+                                        <tr>
+                                            <td>@agentActivity.AgentName</td>
+                                            <td>
+                                                @agentActivity.Title
+                                            </td>
+                                            <td>
+                                                @agentActivity.FirstName
+                                            </td>
+                                            <td>
+                                                @agentActivity.FirstName
+                                            </td>
+                                            <td>
+                                                @agentActivity.LastName
+                                            </td>
+                                            <td>
+                                                @agentActivity.Address
+                                            </td>
+                                            <td>
+                                                @agentActivity.PhoneNumber
+                                            </td>
+                                            @*<td>
+                                                    @{
+                                                        var joiningCreditField = ((IEnumerable<dynamic>)appointment.Fields).FirstOrDefault(f => f.FieldLabel == "DOB");
+                                                        if (joiningCreditField != null)
+                                                        {
+                                                            @joiningCreditField.FieldAnswer
+                                                        }
+                                                    }
+                                                </td>*@
+                                            <td>
+                                                @{
+                                                    if (@agentActivity.Internet != null)
+                                                    {
+                                                        if (@agentActivity.Internet == "Yes")
+                                                        {
+                                                            <span class="fa fa-check" style="color:green;"></span>
+                                                        }
+                                                        else if (@agentActivity.Internet == "No")
+                                                        {
+                                                            <span class="fa fa-times" style="color:red;"></span>
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+                                            <td>
+                                                @{
+                                                    if (@agentActivity.CreditCheck != null)
+                                                    {
+                                                        if (@agentActivity.CreditCheck == "Yes")
+                                                        {
+                                                            <span class="fa fa-check" style="color:green;"></span>
+                                                        }
+                                                        else if (@agentActivity.CreditCheck == "No")
+                                                        {
+                                                            <span class="fa fa-times" style="color:red;"></span>
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+
+
+                                            <td>
+                                                @{
+                                                    if (@agentActivity.IsVerified != null)
+                                                    {
+                                                        if (@agentActivity.IsVerified == "Yes")
+                                                        {
+                                                            <span class="fa fa-check" style="color:green;"></span>
+                                                        }
+                                                        else if (@agentActivity.IsVerified == "No")
+                                                        {
+                                                            <span class="fa fa-times" style="color:red;"></span>
+                                                        }
+                                                    }
+                                                }
+
+                                            </td>
+                                            <td>
+                                                @{
+                                                    if (@agentActivity.Status != null)
+                                                    {
+                                                        if (@agentActivity.Status == "Yes")
+                                                        {
+                                                            <span class="fa fa-check" style="color:green;"></span>
+                                                        }
+                                                        else if (@agentActivity.Status == "No")
+                                                        {
+                                                            <span class="fa fa-times" style="color:red;"></span>
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("Viewdataform", "Home", new { id = agentActivity.AppointmentId })" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </a>
+
+                                                <a href="@Url.Action("EditForm", "Home", new { id = agentActivity.AppointmentId })" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Edit </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+    <!-- /.col -->
+
+</section>
+
+<style>
+    #ProjectMasterIndex {
+        overflow-x: auto;
+        text-align: center;
+        display: block;
+    }
+</style>
+
+<script>
+
+    function ExportToExcel() {
+        var table = $('#ProjectMasterIndex').DataTable();
+        var data = table .rows() .data() .toArray();
+        var header = table.columns().header().toArray().map(function (th) {
+            return { v: $(th).text(), s: { font: { bold: true } } };
+        });
+        for (var i = 0; i < data.length; i++) {
+            for (var j = 0; j < data[i].length; j++) {
+                var cellContent = data[i][j];
+                if (cellContent.includes('<span class="fa fa-check" style="color:green;"></span>')) {
+                    data[i][j] = 'Yes';
+                } else if (cellContent.includes('<span class="fa fa-times" style="color:red;"></span>')) {
+                    data[i][j] = 'No';
+                }
+            }
+            data[i].splice(-1);
+        }
+
+        header.splice(-1);
+
+        var emptyRow = Array(header.length).fill('');
+        data.unshift(emptyRow);
+
+        var wb = XLSX.utils.book_new();
+        wb.SheetNames.push("Sheet1");
+        var wsData = [];
+        wsData.push(header);
+        wsData.push.apply(wsData, data);
+        var ws = XLSX.utils.aoa_to_sheet(wsData);
+        wb.Sheets["Sheet1"] = ws;
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'ActivityExport.xlsx');
+    }
+ $(document).ready(function () {
+    // Initialize DataTables
+     var dataTable = $('#ProjectMasterIndex').DataTable({
+         "paging": true,
+         "searching": false,
+         "bSort":false,
+         //"sorting": false,
+         "language": {
+             "emptyTable": "No data available"
+         }
+    });
+
+    // Click event handler for search button
+     $('#SearchNow').click(function () {
+         var firstNameInput = $('#firstNameInput').val();
+         var middleNameInput = $('#middleNameInput').val();
+         var lastNameInput = $('#lastNameInput').val();
+         var PhoneNumberInput = $('#PhoneNumberInput').val();
+         var team = $('#teamDropdown').val();
+         var agentID = $('#agentDropdown').val();
+         // Get the selected value from the dropdown
+         var creditcheck = document.getElementById("creditcheck").value;
+
+
+         // Convert the selected value into a boolean
+         var creditcheck;
+         if (creditcheck === "Yes") {
+             //creditcheck = true; // Yes selected
+         } else if (creditcheck === "No") {
+             //creditcheck = false; // No selected
+         } else {
+             //filterByCreditCheck = null; // All selected or default
+         }
+         var internet = document.getElementById("internet").value;
+         var internet;
+         if (internet === "Yes") {
+             //internet = true; // Yes selected
+         } else if (internet === "No") {
+             //internet = false; // No selected
+         } else {
+             //filterByCreditCheck = null; // All selected or default
+         }
+
+         $.ajax({
+             url: '@Url.Action("Search", "Home")',
+             type: 'POST',
+             data: {
+                 FirstName: firstNameInput,
+                 MiddleName: middleNameInput,
+                 LastName: lastNameInput,
+                 PhoneNumber: PhoneNumberInput,
+                 AgentName: agentID,
+                 CreditCheck: creditcheck,
+                 Internet: internet,
+                 TeamName: team
+             },
+             success: function (result) {
+                 debugger;
+                 // Clear existing table data
+                 dataTable.clear();
+
+                 // Iterate over the received data and add rows to the table
+                 var appointmentsAvailable = false;
+                 if (result.length > 0) {
+                     appointmentsAvailable = true;
+                 }
+                 //$.each(result, function (index, agentActivity) {
+                 //    // Check if there are appointments
+                 //    if (agentActivity.length > 0) {
+                 //        appointmentsAvailable = true; // Set flag to indicate appointments are available
+                 //        // No need to continue looping if appointments are found
+                 //        return false; // This breaks out of the loop
+                 //    }
+                 //});
+
+                 // If no appointments are available for any agent, add a single row indicating so
+                 if (result.length == 0) {
+                     var rowData = [
+                         "All Agents",
+                         "No appointments available",
+                         "", "", "", "", "", "", "", "", "", "", ""
+                     ];
+                     dataTable.row.add(rowData).draw(false);
+                 } else {
+                             // Iterate over each appointment within the agentActivity
+                             $.each(result, function (index, appointment) {
+                                 // Your existing code for handling appointments
+                                 var internetIcon = appointment.Internet === null ? '' : (appointment.Internet === 'Yes' ? '<span class="fa fa-check" style="color:green;"></span>' : '<span class="fa fa-times" style="color:red;"></span>');
+                                 var creditcheck = appointment.CreditCheck === null ? '' : (appointment.CreditCheck === 'Yes' ? '<span class="fa fa-check" style="color:green;"></span>' : '<span class="fa fa-times" style="color:red;"></span>');
+                                 var verifiedIcon = appointment.IsVerified === null ? '' : (appointment.IsVerified === 'Yes' ? '<span class="fa fa-check" style="color:green;"></span>' : '<span class="fa fa-times" style="color:red;"></span>');
+                                 var statusIcon = appointment.Status === null ? '' : (appointment.Status === 'Yes' ? '<span class="fa fa-check" style="color:green;"></span>' : '<span class="fa fa-times" style="color:red;"></span>');
+
+                                 // Extract data from appointment.Fields array
+                                 var rowData = [
+                                     appointment.AgentName,
+                                     appointment.Title,
+                                     appointment.FirstName,
+                                     appointment.MiddleName,
+                                     appointment.LastName,
+                                     appointment.Address,
+                                     appointment.PhoneNumber,
+                                     //getFieldAnswer(appointment.Fields, 'DOB'),
+                                     internetIcon,
+                                     creditcheck,
+                                     verifiedIcon,
+                                     statusIcon,
+                                     '<a href="@Url.Action("Viewdataform", "Home")/' + appointment.AppointmentId + '" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View</a>' +
+                                    ' <a href="@Url.Action("EditForm", "Home")/' + appointment.AppointmentId + '" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>'
+
+                                 ];
+
+                                 // Add the row to the DataTable
+                                 dataTable.row.add(rowData).draw(false); // Draw the row and prevent DataTables from automatically redrawing
+                             });
+
+                 }
+
+                 if (!appointmentsAvailable) {
+                     dataTable.clear().draw();
+                 }
+
+
+             },
+             error: function (xhr, status, error) {
+                 console.error(xhr.responseText);
+             }
+         });
+
+    });
+
+    // Function to extract field answer from fields array based on label
+    function getFieldAnswer(fields, label) {
+        var field = fields.find(function (f) {
+            return f.FieldLabel === label;
+        });
+        return field ? field.FieldAnswer : '';
+    }
+});
+
+
+
+</script>
+
+
+<style>
+</style>

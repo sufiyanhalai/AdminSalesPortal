@@ -1,0 +1,163 @@
+﻿@model AdminSalesPortal.Models.UserModel
+
+@{ @*ViewBag.Title = " Organization/Create Organization";
+        ViewBag.PageName = "Create Organization";*@
+@*<div class="row mb-2">
+    <div class="col-sm-12">
+
+        <ol class=" float-sm-left">
+            <h2>Create User</h2>
+        </ol>
+
+    </div>
+</div>*@
+}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<section class="content">
+    <div class="form-horizontal">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <ol class=" float-sm-left">
+                            <h2>Create User</h2>
+                        </ol>
+                        <div class="card-body">
+                            @using (Html.BeginForm("CreateUser", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+                                        @Html.LabelFor(model => model.sFirstName, "First Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.sFirstName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.sFirstName, "", new { @class = "text-danger" })
+                                        </div>
+                                        @Html.LabelFor(model => model.sLastName, "Last Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.sLastName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.sLastName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+                                        @Html.LabelFor(model => model.sPreferredName, "Prefeered Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.sPreferredName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.sPreferredName, "", new { @class = "text-danger" })
+                                        </div>
+                                        @Html.LabelFor(model => model.sEmail, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.sEmail, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.sEmail, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+                                        @Html.LabelFor(model => model.sPassword, "Password", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.sPassword, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", id = "sPassword" } })
+                                            @Html.ValidationMessageFor(model => model.sPassword, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        @Html.LabelFor(model => model.sPhone, "Phone Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.sPhone, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @type = "number" } })
+                                            @Html.ValidationMessageFor(model => model.sPhone, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+                                        @Html.LabelFor(model => model.sAddressPrimary, "Primary Address", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.sAddressPrimary, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.sAddressPrimary, "", new { @class = "text-danger" })
+                                        </div>
+                                        @Html.LabelFor(model => model.sAddressSecondary, "Secondary Address", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.sAddressSecondary, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.sAddressSecondary, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+                                        @Html.LabelFor(model => model.iRoleMasterID, "Role", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(model => model.iRoleMasterID, new SelectList(ViewBag.Roles, "Id", "Name"), "Select Role", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.iRoleMasterID, "", new { @class = "text-danger" })
+                                        </div>
+                                        @Html.LabelFor(model => model.ManagerId, "Manager", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(model => model.ManagerId, new SelectList(ViewBag.Managers, "Id", "Name"), "Select Manager", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ManagerId, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+
+                                        @Html.LabelFor(model => model.TeamMasterId, "Team", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(model => model.TeamMasterId, new SelectList(ViewBag.Teams, "Id", "Name"), "Select Team", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.TeamMasterId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10 mb-4">
+                                        <input type="submit" value="Create" class="btn btn-primary" />
+                                        <a class="btn btn-primary btn-search" href="@Url.Action("UserList", "Home")"><i></i> &nbsp; Back To List </a>
+                                    </div>
+                                </div>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<script>
+    //document.getElementById("sPassword").addEventListener("input", function () {
+    //    var passwordInput = document.getElementById("sPassword");
+    //    var passwordDisplay = document.getElementById("password-display");
+    //    var maskedPassword = passwordInput.value.slice(0, 8).replace(/./g, "*");
+    //    passwordDisplay.textContent = maskedPassword + passwordInput.value.slice(8);
+    //});
+    
+    //    $(document).ready(function () {
+    //        // Initially hide the Manager dropdown
+    //        $('#ManagerId').prop('disabled', true);
+
+    //    // When Role dropdown changes
+    //    $('#iRoleMasterID').change(function () {
+    //        var roleId = $(this).val();
+    //    // If Role is selected
+    //    if (roleId == 3) { // Assuming 3 is the ID for the role that requires selecting a manager
+    //        $('#ManagerId').prop('disabled', false); // Enable Manager dropdown
+    //        } else {
+    //        $('#ManagerId').prop('disabled', true); // Otherwise, disable Manager dropdown
+    //        }
+    //    });
+    //});
+
+
+</script>
+
+<style>
+    element.style {
+        text-align: left;
+    }
+
+</style>

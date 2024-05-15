@@ -1,0 +1,91 @@
+﻿
+
+@{
+    
+}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title" id="ProjectMaster-title">
+                            <h4><b>User</b></h4>
+                        </div>
+                        <div class="float-sm-right">
+                            <!-- Show the button on desktop screens -->
+                            <a class="btn btn-primary d-none d-sm-block text-bold" href="@Url.Action("CreateUser","Home")"><i class="fa fa-plus"></i> &nbsp; Create New </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div style="overflow-x:auto;">
+                            <div class="d-sm-none mb-2">
+                                <a class="btn btn-primary btn-block text-bold" href="@Url.Action("CreateUser","Home")"><i class="fa fa-plus"></i> &nbsp; Create New </a>
+                            </div>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                <table id="UserListTable" class="table table-bordered table-striped" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Prefeered Name</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Created Date</th>
+
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var user in Model)
+                                        {
+                                            <tr>
+                                                <td>@user.sFirstName</td>
+                                                <td>@user.sLastName</td>
+                                                <td>@user.sPreferredName</td>
+                                                <td>@user.sEmail</td>
+                                                <td>@user.sPhone</td>
+                                                <td>@user.dtCreatedDate.ToString("yyyy-MM-dd")</td>
+
+                                                <td>
+
+                                                    <a href="@Url.Action("EditUser", "Home", new { id = user.iUserMasterID })" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Edit </a>
+
+
+                                                    <a href="@Url.Action("ViewUser", "Home", new { id = user.iUserMasterID })" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <p>No users available</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#UserListTable').DataTable({
+                //"paging": true,
+             
+                //"searching": true,
+                "order": [[5, 'desc']] 
+            });
+        });
+    </script>
+
+}

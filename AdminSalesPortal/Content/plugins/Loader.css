@@ -1,0 +1,45 @@
+﻿
+
+<style type="text/css" >
+body {
+    background-color: #6CC4EE;
+}
+
+.loading {
+    width: 100%;    
+    position: fixed;    
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.7);
+    z-index: 9999;
+    display: none;
+}
+
+
+/*.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: black;
+    z-index: 99;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    min-height: 0%;
+    width: 0%;
+}
+
+
+.loading {
+    font-family: Arial;
+    font-size: 10pt;
+    border: 0px;
+    width: 0px;
+    height: 0px;
+    display: none;
+    position: fixed;
+    background-color: White;
+    z-index: 999;
+}*/
+
+</style >

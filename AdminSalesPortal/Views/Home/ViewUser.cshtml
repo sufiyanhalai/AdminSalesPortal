@@ -1,0 +1,122 @@
+﻿
+
+
+
+
+@model AdminSalesPortal.Models.UserModel
+
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+
+<div>
+    <section class="content">
+        <div class="form-horizontal">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <ol class=" float-sm-left">
+                                <h2>View User</h2>
+                            </ol>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+                                        @Html.LabelFor(model => model.sFirstName, "First Name", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4" style="margin-top:7px;">
+                                            :
+                                            @Html.DisplayFor(model => model.sFirstName)
+                                        </div>
+                                        @Html.LabelFor(model => model.sLastName, "Last Name", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4" style="margin-top:7px;">
+                                            :
+                                            @Html.DisplayFor(model => model.sLastName)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+                                        @Html.LabelFor(model => model.sPreferredName, "Preffered Name", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4" style="margin-top:7px;">
+                                            :
+                                            @Html.DisplayFor(model => model.sPreferredName)
+                                        </div>
+                                        @Html.LabelFor(model => model.sEmail, "Email", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4" style="margin-top:5px;">
+                                            :
+                                            @Html.DisplayFor(model => model.sEmail)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+                                        @Html.LabelFor(model => model.sPassword, "Password", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4" style="margin-top:5px;">
+                                            :
+                                            @{
+                                                var passwordLength = Model.sPassword.Length;
+                                                var maskedPassword = new string('*', passwordLength);
+                                            }
+                                            @maskedPassword
+                                        </div>
+
+                                        @Html.LabelFor(model => model.sPhone, "Phone Number", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4" style="margin-top:5px;">
+                                            :
+                                            @Html.DisplayFor(model => model.sPhone)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+                                        @Html.LabelFor(model => model.sAddressPrimary, "Primary Address", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4" style="margin-top:5px;">
+                                            :
+                                            @Html.DisplayFor(model => model.sAddressPrimary)
+                                        </div>
+                                        @Html.LabelFor(model => model.sAddressSecondary, "Secondary Address", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4" style="margin-top:5px;">
+                                            :
+                                            @Html.DisplayFor(model => model.sAddressSecondary)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <div class="col-md-12 row">
+                                        @Html.LabelFor(model => model.dtCreatedDate, "Create Date", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4" style="margin-top:5px;">
+                                            :
+                                            @Html.DisplayFor(model => model.dtCreatedDate)
+                                        </div>
+                                        @Html.LabelFor(model => model.dtLastUpdatedDate, "Updated Date", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4" style="margin-top:5px;">
+                                            :
+                                            @Html.DisplayFor(model => model.dtLastUpdatedDate)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <a class="btn btn-primary btn-search" href="@Url.Action("UserList", "Home")" style="float: right;"><i></i> &nbsp; Back To List </a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+</section>
+</div>

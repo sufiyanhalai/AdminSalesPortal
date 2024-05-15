@@ -1,0 +1,105 @@
+﻿@model List<AdminPortal.Models.AgentActivitiesResponseModel>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table id="ProjectMasterIndex" class="table table-bordered table-striped" style="width:100%;">
+        <thead>
+            <tr>
+                <th style="width: 10%;">Agent Name</th>
+                <th style="width: 10%;">Pin Location</th>
+                <th style="width: 10%;">First Name</th>
+                <th style="width: 10%;">Middle Name</th>
+                <th style="width: 10%;">Last Name</th>
+                <th style="width: 10%;">User Type</th>
+                <th style="width: 10%;">Identity Type</th>
+                <th style="width: 10%;">Joining Credit</th>
+                <th style="width: 10%;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agentActivity in Model)
+            {
+                foreach (var appointment in agentActivity.Appointments)
+                {
+                    <tr>
+                        <td>@agentActivity.AgentName</td>
+                        <td>
+                            @{
+                                var firstname = ((IEnumerable<dynamic>)appointment.Fields).FirstOrDefault(f => f.FieldLabel == "First Name");
+                                if (firstname != null)
+                                {
+                                    @firstname.FieldAnswer
+                                }
+                            }
+                        </td>
+
+                        <td>
+                            @{
+                                var pinl = ((IEnumerable<dynamic>)appointment.Fields).FirstOrDefault(f => f.FieldLabel == "Pin Location");
+                                if (pinl != null)
+                                {
+                                    @pinl.FieldAnswer
+                                }
+                            }
+                        </td>
+
+                        <td>
+                            @{
+                                var middlename = ((IEnumerable<dynamic>)appointment.Fields).FirstOrDefault(f => f.FieldLabel == "Middle Name");
+                                if (middlename != null)
+                                {
+                                    @middlename.FieldAnswer
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                var lastname = ((IEnumerable<dynamic>)appointment.Fields).FirstOrDefault(f => f.FieldLabel == "Last Name");
+                                if (lastname != null)
+                                {
+                                    @lastname.FieldAnswer
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                var userTypeField = ((IEnumerable<dynamic>)appointment.Fields).FirstOrDefault(f => f.FieldLabel == "User Type");
+                                if (userTypeField != null)
+                                {
+                                    @userTypeField.FieldAnswer
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                var identityTypeField = ((IEnumerable<dynamic>)appointment.Fields).FirstOrDefault(f => f.FieldLabel == "Identity Type");
+                                if (identityTypeField != null)
+                                {
+                                    @identityTypeField.FieldAnswer
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                var joiningCreditField = ((IEnumerable<dynamic>)appointment.Fields).FirstOrDefault(f => f.FieldLabel == "Joining Credit");
+                                if (joiningCreditField != null)
+                                {
+                                    @joiningCreditField.FieldAnswer
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Viewdataform", "Home", new { id = appointment.AppointmentId })" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </a>
+                            <a href="@Url.Action("Viewdataform", "Home", new { id = appointment.AppointmentId })" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Edit </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No data available</p>
+}
+
