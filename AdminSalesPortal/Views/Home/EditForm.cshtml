@@ -16,6 +16,7 @@
                     @using (Html.BeginForm("EditForm", "Home", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
+
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
@@ -30,69 +31,110 @@
                                     }*@
                                 @for (int i = 0; i < Model.Count; i++)
                                 {
+                                    @Html.HiddenFor(model => Model[i].iAppointmentMasterID);
+                                    @Html.HiddenFor(model => Model[i].iFormFieldID);
+                                    @Html.HiddenFor(model => Model[i].FieldInputTypeName);
+                                    @Html.HiddenFor(model => Model[i].DefaultValues);
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model[i].sFieldAnswer, Model[i].FieldLabel, new { @class = "control-label col-md-4" })
+                                            @Html.LabelFor(model => model[i].sFieldAnswer, Model[i].Fieldlabel, new { @class = "control-label col-md-4" })
                                             <div class="col-md-8">
                                                 @if (Model[i].FieldInputTypeName == "Textbox")
                                                 {
                                                     @Html.EditorFor(model => model[i].sFieldAnswer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
-                                                    @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
+
                                                 }
                                                 else if (Model[i].FieldInputTypeName == "Dropdown")
                                                 {
                                                     @Html.DropDownListFor(model => model[i].sFieldAnswer, Model[i].DefaultValues.Select(x => new SelectListItem()
                                                     {
                                                         Value = Convert.ToString(x.Value)
-                                                   ,
+                                                        ,
                                                         Text = x.Text,
-                                                        Selected = (x.Text == Model[i].sFieldAnswer) ? true : false
-                                               }).ToList(), "selected", new { @class = "form-control", autocomplete = "off" })
-                                                    @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
+                                                        Selected = (Convert.ToString(x.Value) == Model[i].sFieldAnswer) ? true : false
+                                                    }).ToList(), "selected", new { @class = "form-control", autocomplete = "off" })
+
+                                                }
+                                                else if (Model[i].FieldInputTypeName == "Datepicker")
+                                                {
+
+                                                    string inputDateFormat = "ddd MMM dd yyyy";
+                                                    string outputDateFormat = "yyyy-MM-dd";
+                                                    string formattedDate;
+
+                                                    DateTime parsedDate;
+                                                    if (DateTime.TryParseExact(Model[i].sFieldAnswer, inputDateFormat, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out parsedDate))
+                                                    {
+                                                        formattedDate = parsedDate.ToString(outputDateFormat);
+                                                    }
+                                                    else
+                                                    {
+                                                        formattedDate = DateTime.Parse(Model[i].sFieldAnswer).ToString(outputDateFormat);
+                                                    }
+
+
+
+                                                    @Html.EditorFor(model => Model[i].sFieldAnswer, new
+                                                    {
+                                                        htmlAttributes = new
+                                                        {
+                                                            @class = "form-control datepicker",
+                                                            @type = "date",
+                                                            @Value = formattedDate
+                                                        },
+                                                    })
+                                                    @*<input type="date" class="form-control" name="Model[@i].sFieldAnswer" id="date" value="@formattedDate" onchange="updateModelField(@i)" />*@
+
+
                                                 }
                                                 else if (Model[i].FieldInputTypeName == "RadioButton")
                                                 {
                                                     foreach (var option in Model[i].DefaultValues)
                                                     {
                                                         <label class="radio-inline">
-                                                            @Html.RadioButtonFor(model => model[i].sFieldAnswer, option.Value.ToString(), new { @checked = (option.Value.ToString() == Model[i].sFieldAnswer) })
+                                                            @Html.RadioButtonFor(model => Model[i].sFieldAnswer, option.Value)
                                                             @option.Text
                                                         </label>
                                                     }
-                                                    @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
+
+                                                    @*<div class="row">
+                                                            @foreach (var option in Model[i].DefaultValues)
+                                                            {
+                                                                <div class="col-md-auto">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="Model[@i].sFieldAnswer"  value="@option.Value" @(option.Text == Model[i].sFieldAnswer ? "checked" : "") />
+                                                                        @option.Text
+                                                                    </label>
+                                                                </div>
+                                                            }
+                                                        </div>*@
                                                 }
-                                                else if (Model[i].FieldInputTypeName == "Datepicker")
-                                                {
-                                                    var formattedDate = DateTime.ParseExact(Model[i].sFieldAnswer, "ddd MMM dd yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
-                                                    @*@Html.EditorFor(model => model[i].sFieldAnswer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @type= "date", value = formattedDate } })*@
-                                                    <input type="date" class="form-control" name="Model[@i].sFieldAnswer" value="@formattedDate" />
-                                                    @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
-                                                }
+
                                                 @*else if (Model[i].FieldInputTypeName == "FileUpload")
-        {
-            <input type="file" name="Model[@i].sFieldAnswer" multiple />
-            @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
-            <br>
-            if (!string.IsNullOrEmpty(model[i].sFieldAnswer))
-            {
-                var filePaths = model[i].sFieldAnswer.Split(',');
-                foreach (var filePath in filePaths)
-                {
-                    var fileName = Path.GetFileName(filePath.Trim());
-                    <div class="col-md-12">
-                        <p>
-                            <b>Selected file:</b>
-                            <a href="@Url.Content("~/")@filePath" download>@fileName</a>
-                            <span class="fa fa-times" style="color: red; margin: 7px;"></span>
-                        </p>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>No file chosen</p>
-            }
-        }*@
+                                                    {
+                                                        <input type="file" name="Model[@i].sFieldAnswer" multiple />
+                                                        @Html.ValidationMessageFor(model => model[i].sFieldAnswer, "", new { @class = "text-danger" })
+                                                        <br>
+                                                        if (!string.IsNullOrEmpty(Model[i].sFieldAnswer))
+                                                        {
+                                                            var filePaths = Model[i].sFieldAnswer.Split(',');
+                                                            foreach (var filePath in filePaths)
+                                                            {
+                                                                var fileName = Path.GetFileName(filePath.Trim());
+                                                                <div class="col-md-12">
+                                                                    <p>
+                                                                        <b>Selected file:</b>
+                                                                        <a href="@Url.Content("~/")@filePath" download>@fileName</a>
+                                                                        <span class="fa fa-times" style="color: red; margin: 7px;"></span>
+                                                                    </p>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>No file chosen</p>
+                                                        }
+                                                    }*@
                                             </div>
                                         </div>
                                     </div>
@@ -112,3 +154,14 @@
         </div>
     </div>
 </section>
+
+<script>
+    var modelData = @Html.Raw(Json.Encode(Model));
+
+    function updateModelField(i) {
+    var selectedDate = document.getElementById('date').value;
+    var formattedDate = new Date(selectedDate).toISOString().split('T')[0];
+        modelData[i].sFieldAnswer = formattedDate;
+}
+
+</script>

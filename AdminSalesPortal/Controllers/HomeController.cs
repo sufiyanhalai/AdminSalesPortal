@@ -173,7 +173,7 @@ namespace AdminPortal.Controllers
 
 
                     // Call the API endpoint asynchronously
-                    HttpResponseMessage response = await httpClient.GetAsync($"https://salestrackingmanagement.msainfotech.in/Form/GetAcivitiesByAppoinmentId?appointmentID={id}");
+                    HttpResponseMessage response = await httpClient.GetAsync($"https://salestrackingmanagement.msainfotech.in/Form/ViewDataForm?appointmentID={id}");
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -318,7 +318,7 @@ namespace AdminPortal.Controllers
             }
         }
         [HttpPost]
-        public ActionResult EditForm(List<FieldModel> model)
+        public async Task<ActionResult> EditForm(List<FieldModel> model)
         {
             using (HttpClient httpClient = new HttpClient())
             {
@@ -329,13 +329,14 @@ namespace AdminPortal.Controllers
 
 
                 // Convert the list of FieldModel objects to JSON
-                string json = JsonConvert.SerializeObject(model);
+                string jsonContent = JsonConvert.SerializeObject(model);
 
                 // Create the request content
-                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
 
                 // Call the API endpoint asynchronously
-                HttpResponseMessage response = httpClient.PostAsync("https://salestrackingmanagement.msainfotech.in/Form/Updatedata", content).Result;
+                HttpResponseMessage response = await httpClient.PostAsync($"https://salestrackingmanagement.msainfotech.in/Form/Updatedata", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -344,6 +345,7 @@ namespace AdminPortal.Controllers
                 }
                 else
                 {
+                    string json = await response.Content.ReadAsStringAsync();
                     // If the request is not successful, return to the create view with an error
                     return View("Error");
                 }

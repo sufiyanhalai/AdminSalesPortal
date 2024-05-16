@@ -1,19 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace AdminSalesPortal.Models
 {
+    public class FieldsViewModel
+    {
+        public FieldsViewModel()
+        {
+            fieldsModel = new List<FieldModel>();
+        }
+
+        public List<FieldModel> fieldsModel { get; set; }
+    }
     public class FieldModel
     {
+        public string Fieldlabel { get; set; }
+        public int iFieldAnswerID { get; set; }
+        public int iAppointmentMasterID { get; set; }
         public int iFormFieldID { get; set; }
         public string sFieldAnswer { get; set; }
-        public string FieldLabel { get; set; }
         public int FieldInputTypeId { get; set; }
         public string FieldInputTypeName { get; set; }
         public List<ReturnFieldInputValue> DefaultValues { get; set; }
-        public List<string> SelectedRadioValues { get; set; }
     }
     public class ReturnFieldInputValue
     {
@@ -24,4 +35,5 @@ namespace AdminSalesPortal.Models
 
         public int? ChildfieldInputValueId { get; set; }
     }
+
 }
